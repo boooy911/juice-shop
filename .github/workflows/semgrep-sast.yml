@@ -1,0 +1,30 @@
+name: Semgrep SAST Scan
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  semgrep-scan:
+    name: Run Semgrep SAST
+    runs-on: ubuntu-latest
+
+    container:
+      image: semgrep/semgrep  
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep SAST and log results to console
+        run: |
+          semgrep \
+            --config=auto \
+            --verbose \
+            --text \
+            --no-error \
+            .
+        env:
+          # SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+          SEMGREP_SEND_METRICS: "off"
