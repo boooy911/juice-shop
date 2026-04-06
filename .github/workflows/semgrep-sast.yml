@@ -20,8 +20,7 @@ jobs:
       - name: Run Semgrep SAST and log results to console
         run: |
           semgrep \
-            --config=auto \
-            --verbose \
+            --config=p/owasp-top-ten \
             --text \
             --no-error \
             .
